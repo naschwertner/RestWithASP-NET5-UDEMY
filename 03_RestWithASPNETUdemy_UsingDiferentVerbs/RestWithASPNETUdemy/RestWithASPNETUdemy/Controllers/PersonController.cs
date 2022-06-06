@@ -1,72 +1,72 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestWithASP_NET5Udemy.Model;
-using RestWithASP_NET5Udemy.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RestWithASPNETUdemy.Model;
+using RestWithASPNETUdemy.Services;
 
-namespace RestWithASP_NET5Udemy.Controllers
+namespace RestWithASPNETUdemy.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class PersonControllers : ControllerBase
+    [Route("api/[controller]")]
+    public class PersonController : ControllerBase
     {
-        private readonly ILogger<PersonControllers> _logger;
+
+        private readonly ILogger<PersonController> _logger;
+        
         //declaração do service usado
         private IPersonService _personService;
 
         //injeção da instancia de IPersonService
         //quando criada a instacia de PersonController
-        public PersonControllers(ILogger<PersonControllers> logger, IPersonService personService)
+        public PersonController(ILogger<PersonController> logger, IPersonService personService)
         {
             _logger = logger;
             _personService = personService;
         }
 
-        // Maps GET requests to https://localhost:{port}/api/person
+        /// Maps GET requests to https://localhost:{port}/api/person
         // Get no parameters for FindAll -> Search All
-        [HttpGet] 
+        [HttpGet]
         public IActionResult Get()
         {
             return Ok(_personService.FindAll());
         }
 
         // Maps GET requests to https://localhost:{port}/api/person/{id}
-        // receiving an ID as in the Request Path
-        // Get with parameters for FindById -> Search by ID
-        [HttpGet("{id}")] 
+        // recebendo um ID como no Caminho da Solicitação
+        // Get com parâmetros para FindById -> Search by ID
+        [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
             var person = _personService.FindByID(id);
-            if (person == null) NotFound();
+            if (person == null) return NotFound();
             return Ok(person);
         }
 
         // Maps POST requests to https://localhost:{port}/api/person/
-        // [FromBody] consumes the JSON object sent in the request body
-        [HttpPost] 
+        // [FromBody] consome o objeto JSON enviado no corpo da solicitação
+        [HttpPost]
         public IActionResult Post([FromBody] Person person)
         {
-            if (person == null) BadRequest();
+            if (person == null) return BadRequest();
             return Ok(_personService.Create(person));
         }
 
+        // Maps PUT requests to https://localhost:{port}/api/person/
+        // [FromBody] consome the JSON object sent in the request body
         [HttpPut]
         public IActionResult Put([FromBody] Person person)
         {
-            if (person == null) BadRequest();
+            if (person == null) return BadRequest();
             return Ok(_personService.Update(person));
         }
 
+        // Maps DELETE requests to https://localhost:{port}/api/person/{id}
+        // recebendo um ID como no Caminho da Solicitação
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
             _personService.Delete(id);
             return NoContent();
         }
-
-        
     }
 }

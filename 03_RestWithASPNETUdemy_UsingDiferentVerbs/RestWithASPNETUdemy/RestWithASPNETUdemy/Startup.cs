@@ -1,19 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using RestWithASP_NET5Udemy.Services;
-using RestWithASP_NET5Udemy.Services.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RestWithASPNETUdemy.Services;
+using RestWithASPNETUdemy.Services.Implementations;
 
-namespace RestWithASP_NET5Udemy
+namespace RestWithASPNETUdemy
 {
     public class Startup
     {
@@ -27,10 +20,10 @@ namespace RestWithASP_NET5Udemy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
 
-            services.AddScoped<IPersonService, PersonServiceImplementation>(); //injeção de dependencia
+            //Dependency Injection
+            services.AddScoped<IPersonService, PersonServiceImplementation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

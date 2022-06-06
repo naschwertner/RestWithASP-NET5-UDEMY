@@ -1,7 +1,7 @@
-﻿using RestWithASP_NET5Udemy.Model;
+﻿using RestWithASPNETUdemy.Model;
 using System.Collections.Generic;
 
-namespace RestWithASP_NET5Udemy.Services
+namespace RestWithASPNETUdemy.Services
 {
     public interface IPersonService
     {
@@ -10,6 +10,5 @@ namespace RestWithASP_NET5Udemy.Services
         List<Person> FindAll();
         Person Update(Person person);
         void Delete(long id);
- 
     }
 }
