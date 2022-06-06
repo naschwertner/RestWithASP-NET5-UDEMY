@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RestWithASP_NET5Udemy.Services;
+using RestWithASP_NET5Udemy.Services.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,8 @@ namespace RestWithASP_NET5Udemy
         {
 
             services.AddControllers();
+
+            services.AddScoped<IPersonService, PersonServiceImplementation>(); //injeção de dependencia
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
