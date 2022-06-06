@@ -6,25 +6,25 @@ namespace RestWithASPNETUdemy.Services.Implementations
 {
     public class PersonServiceImplementation : IPersonService
     {
-        // Counter responsible for generating a fake ID
-        // since we are not accessing any database
+        // Contador responsável por gerar um ID falso
+        // já que ainda não possui acesso ao banco
         private volatile int count;
 
-        // Method responsible for creating a new person.
-        // If we had a database this would be the time to persist the data
+        // Método responsável por criar uma nova pessoa.
+        // Se tivésse um banco de dados esse seria o momento de persistir os dados
         public Person Create(Person person)
         {
             return person;
         }
 
-        // Method responsible for deleting a person from an ID
+        // Método responsável por excluir uma pessoa de um ID
         public void Delete(long id)
         {
-            // Our exclusion logic would come here
+            // lógica de exclusão viria aqui
         }
 
-        // Method responsible for returning all people,
-        // again this information is mocks
+        // Método responsável por devolver todas as pessoas,
+        // novamente esta informação é simulada
         public List<Person> FindAll()
         {
             List<Person> persons = new List<Person>();
@@ -36,8 +36,8 @@ namespace RestWithASPNETUdemy.Services.Implementations
             return persons;
         }
 
-        // Method responsible for returning a person
-        // as we have not accessed any database we are returning a mock
+        // Método responsável por devolver uma pessoa
+        // como não foi acessado nenhum banco de dados esta retornando um mock
         public Person FindByID(long id)
         {
             return new Person
@@ -50,8 +50,8 @@ namespace RestWithASPNETUdemy.Services.Implementations
             };
         }
 
-        // Method responsible for updating a person for
-        // being mock we return the same information passed
+        // Método responsável por atualizar uma pessoa
+        // sendo mock retorna mesma informação passada
         public Person Update(Person person)
         {
             return person;
