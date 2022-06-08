@@ -1,19 +1,34 @@
-﻿using RestWithASPNETUdemy.Model;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using RestWithASPNETUdemy.Model;
+using RestWithASPNETUdemy.Model.Context;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace RestWithASPNETUdemy.Services.Implementations
 {
     public class PersonServiceImplementation : IPersonService
     {
-        // Contador responsável por gerar um ID falso
-        // já que ainda não possui acesso ao banco
-        private volatile int count;
+        
+        private MySQLContext _context;
 
-        // Método responsável por criar uma nova pessoa.
-        // Se tivésse um banco de dados esse seria o momento de persistir os dados
+        public PersonServiceImplementation(MySQLContext context)
+        {
+            _context = context;
+        }
         public Person Create(Person person)
         {
+            try
+            {
+                _context.Add(person);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
             return person;
         }
 
@@ -27,51 +42,41 @@ namespace RestWithASPNETUdemy.Services.Implementations
         // novamente esta informação é simulada
         public List<Person> FindAll()
         {
-            List<Person> persons = new List<Person>();
-            for (int i = 0; i < 8; i++)
-            {
-                Person person = MockPerson(i);
-                persons.Add(person);
-            }
-            return persons;
+            return _context.Pople.ToList();
         }
 
         // Método responsável por devolver uma pessoa
         // como não foi acessado nenhum banco de dados esta retornando um mock
         public Person FindByID(long id)
         {
-            return new Person
-            {
-                Id = IncrementAndGet(),
-                FirstName = "Leandro",
-                LastName = "Costa",
-                Address = "Uberlandia - Minas Gerais - Brasil",
-                Gender = "Male"
-            };
+            return _context.Pople.SingleOrDefault(p => p.Id.Equals(id));
         }
 
         // Método responsável por atualizar uma pessoa
         // sendo mock retorna mesma informação passada
         public Person Update(Person person)
         {
-            return person;
+            if (!Exists(person.Id)) return new Person();
+
+
+            var result = _context.Pople.SingleOrDefault(p => p.Id.Equals(person.Id));
+            if (result != null)
+            try
+                {
+                    _context.Entry(result);
+                    _context.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                return person;
         }
 
-        private Person MockPerson(int i)
+        private bool Exists(long id)
         {
-            return new Person
-            {
-                Id = IncrementAndGet(),
-                FirstName = "Person Name" + i,
-                LastName = "Person LastName" + i,
-                Address = "Some Address" + i,
-                Gender = "Male"
-            };
-        }
-
-        private long IncrementAndGet()
-        {
-            return Interlocked.Increment(ref count);
+            return _context.Pople.Any(p => p.Id.Equals(id));
         }
     }
 }
