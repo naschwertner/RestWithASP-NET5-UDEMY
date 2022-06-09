@@ -13,6 +13,6 @@ namespace RestWithASPNETUdemy.Model.Context
         }
         public MySQLContext(DbContextOptions<MySQLContext> options) : base(options) { } //passa as options para o base
 
-        public DbSet<Person> Pople { get; set; } //lista de pessoas
+        public DbSet<Person> People { get; set; } //lista de pessoas
     }
 }

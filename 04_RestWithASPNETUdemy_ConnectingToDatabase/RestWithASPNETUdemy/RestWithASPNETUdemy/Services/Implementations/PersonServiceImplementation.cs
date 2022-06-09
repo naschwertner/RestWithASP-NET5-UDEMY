@@ -10,24 +10,25 @@ namespace RestWithASPNETUdemy.Services.Implementations
 {
     public class PersonServiceImplementation : IPersonService
     {
-        
+        //declaração MySQLContext
         private MySQLContext _context;
 
-        public PersonServiceImplementation(MySQLContext context)
+        //construtor
+        public PersonServiceImplementation(MySQLContext context) //recebendo a injeção
         {
-            _context = context;
+            _context = context;  //atribui a variavel ao contex declarado na classe
         }
         public Person Create(Person person)
         {
+            //esse try catch salva  objeto depois retorna ele 
             try
             {
                 _context.Add(person);
                 _context.SaveChanges();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw ex;
+                throw;      
             }
             return person;
         }
@@ -35,48 +36,62 @@ namespace RestWithASPNETUdemy.Services.Implementations
         // Método responsável por excluir uma pessoa de um ID
         public void Delete(long id)
         {
-            // lógica de exclusão viria aqui
+            var result = _context.People.SingleOrDefault(p => p.Id.Equals(id));
+            if (result != null)
+            {
+
+                try
+                {
+                    _context.People.Remove(result);
+                    _context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+            }
         }
 
         // Método responsável por devolver todas as pessoas,
-        // novamente esta informação é simulada
         public List<Person> FindAll()
         {
-            return _context.Pople.ToList();
+            return _context.People.ToList();
         }
 
-        // Método responsável por devolver uma pessoa
-        // como não foi acessado nenhum banco de dados esta retornando um mock
+        // Método responsável por devolver uma pessoa por ID
         public Person FindByID(long id)
         {
-            return _context.Pople.SingleOrDefault(p => p.Id.Equals(id));
+            return _context.People.SingleOrDefault(p => p.Id.Equals(id));
         }
 
         // Método responsável por atualizar uma pessoa
-        // sendo mock retorna mesma informação passada
         public Person Update(Person person)
         {
             if (!Exists(person.Id)) return new Person();
 
 
-            var result = _context.Pople.SingleOrDefault(p => p.Id.Equals(person.Id));
-            if (result != null)
-            try
+            var result = _context.People.SingleOrDefault(p => p.Id.Equals(person.Id));
+            if (result != null){
+
+                try
                 {
-                    _context.Entry(result);
+                    _context.Entry(result).CurrentValues.SetValues(person);
                     _context.SaveChanges();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
-                    throw ex;
+                    throw;
                 }
-                return person;
+                    
+            }
+            return person;
         }
+
 
         private bool Exists(long id)
         {
-            return _context.Pople.Any(p => p.Id.Equals(id));
+            return _context.People.Any(p => p.Id.Equals(id));
         }
     }
 }
