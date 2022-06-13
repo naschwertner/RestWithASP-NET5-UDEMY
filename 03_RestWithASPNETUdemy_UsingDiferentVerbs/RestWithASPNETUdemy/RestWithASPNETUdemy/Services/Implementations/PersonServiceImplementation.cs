@@ -10,18 +10,6 @@ namespace RestWithASPNETUdemy.Services.Implementations
         // já que ainda não possui acesso ao banco
         private volatile int count;
 
-        // Método responsável por criar uma nova pessoa.
-        // Se tivésse um banco de dados esse seria o momento de persistir os dados
-        public Person Create(Person person)
-        {
-            return person;
-        }
-
-        // Método responsável por excluir uma pessoa de um ID
-        public void Delete(long id)
-        {
-            // lógica de exclusão viria aqui
-        }
 
         // Método responsável por devolver todas as pessoas,
         // novamente esta informação é simulada
@@ -50,6 +38,13 @@ namespace RestWithASPNETUdemy.Services.Implementations
             };
         }
 
+        // Método responsável por criar uma nova pessoa.
+        // Se tivésse um banco de dados esse seria o momento de persistir os dados
+        public Person Create(Person person)
+        {
+            return person;
+        }
+
         // Método responsável por atualizar uma pessoa
         // sendo mock retorna mesma informação passada
         public Person Update(Person person)
@@ -68,10 +63,18 @@ namespace RestWithASPNETUdemy.Services.Implementations
                 Gender = "Male"
             };
         }
+       
+
+        // Método responsável por excluir uma pessoa de um ID
+        public void Delete(long id)
+        {
+            // lógica de exclusão viria aqui
+        }
 
         private long IncrementAndGet()
         {
             return Interlocked.Increment(ref count);
         }
+
     }
 }
