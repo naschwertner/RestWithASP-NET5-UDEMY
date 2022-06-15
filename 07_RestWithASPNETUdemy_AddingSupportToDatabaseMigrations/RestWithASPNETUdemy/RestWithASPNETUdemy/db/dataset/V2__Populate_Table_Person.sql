@@ -1,8 +1,6 @@
-CREATE TABLE IF NOT EXISTS `person`(
-    `id`bigint NOT NULL AUTO_INCREMENT,
-    `address`varchar(100) NOT NULL,
-    `first_name`varchar(80) NOT NULL,
-    `gender`varchar(6) NOT NULL,
-    `last_name`varchar(80) NOT NULL,
-     PRIMARY KEY(`id`)
-)person
+INSERT INTO `person` (`id`, `address`, `first_name`, `gender`, `last_name`) VALUES
+	(1, 'São Paulo - Brasil', 'Ayrton', 'Male', 'Senna'),
+	(2, 'Anchiano - Italy', 'Leonardo', 'Male', 'da Vinci'),
+	(3, 'Porbandar - India', 'Mahatma', 'Male', 'Gandhi'),
+	(4, 'Kentucky - USA', 'Mohamed Ali', 'Male', 'Gandhi'),
+	(5, 'Mvezo - South Africa', 'Nelson', 'Male', 'Mandela');

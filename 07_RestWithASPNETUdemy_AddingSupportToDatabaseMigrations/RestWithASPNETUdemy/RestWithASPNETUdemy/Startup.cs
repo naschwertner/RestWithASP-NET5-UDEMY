@@ -5,19 +5,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RestWithASPNETUdemy.Model.Context;
-using RestWithASPNETUdemy.Business;
-using RestWithASPNETUdemy.Business.Implementations;
 using RestWithASPNETUdemy.Repository;
 using RestWithASPNETUdemy.Repository.Implementations;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using RestWithASPNETUdemy.Services;
+using RestWithASPNETUdemy.Services.Implementations;
+
 namespace RestWithASPNETUdemy
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IWebHostEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; } //configuração do migration
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
@@ -39,6 +40,7 @@ namespace RestWithASPNETUdemy
             //mySQLConnectionString
             var connection = Configuration["MySQLConnection:MySQLConnectionString"];
             
+            //configuração do migration
             if (Environment.IsDevelopment());
             {
                 MigrateDatabase(connection);
@@ -81,7 +83,7 @@ namespace RestWithASPNETUdemy
             
            
         }
-        //metodo de migration 
+        //metodo do migration 
         private void MigrateDatabase(string connection)
         {
             try
@@ -89,7 +91,7 @@ namespace RestWithASPNETUdemy
                 var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connection);
                 var evolve = new Evolve.Evolve(evolveConnection, msg => Log.Information(msg))
                 {
-                    Locations = new List<string> { "db/migrations", "db/dataset" },
+                    Locations = new List<string> { "db/migrations", "db/dataset" },  //diretórios onde estão as migrations 
                     IsEraseDisabled = true,
                 };
                 evolve.Migrate();

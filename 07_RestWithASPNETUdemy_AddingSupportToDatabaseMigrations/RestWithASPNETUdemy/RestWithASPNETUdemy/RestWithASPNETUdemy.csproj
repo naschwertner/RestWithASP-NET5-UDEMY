@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="db\migrations\" />
-    <Folder Include="db\dataset\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Evolve" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
