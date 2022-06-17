@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace RestWithASPNETUdemy.Repository
 {
-    public interface BooksRepository
+    public interface IPersonRepository
     {
-        Books Create(Books books);
-        Books FindByID(long id);
-        List<Books> FindAll();
-        Books Update(Books books);
+        Person Create(Person person);
+        Person FindByID(long id);
+        List<Person> FindAll();
+        Person Update(Person person);
         void Delete(long id);
         bool Exists(long id);
     }
