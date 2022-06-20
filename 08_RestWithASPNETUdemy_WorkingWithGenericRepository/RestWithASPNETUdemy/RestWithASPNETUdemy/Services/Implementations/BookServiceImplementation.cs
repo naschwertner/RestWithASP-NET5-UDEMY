@@ -12,10 +12,10 @@ namespace RestWithASPNETUdemy.Services.Implementations
     public class BookServiceImplementation : IBookService
     {
         //declaração MySQLContext
-        private readonly IBookRepository _repository;
+        private readonly IRepository<Book> _repository;
 
         //construtor
-        public BookServiceImplementation(IBookRepository repository)//recebendo a injeção
+        public BookServiceImplementation(IRepository<Book> repository)//recebendo a injeção
         {
             _repository = repository;  //atribui a variavel ao contex declarado na classe
         }

@@ -12,10 +12,10 @@ namespace RestWithASPNETUdemy.Services.Implementations
     public class PersonServiceImplementation : IPersonService
     {
         //declaração MySQLContext
-        private readonly IPersonRepository _repository;
+        private readonly IRepository<Person> _repository;
 
         //construtor
-        public PersonServiceImplementation(IPersonRepository repository)//recebendo a injeção
+        public PersonServiceImplementation(IRepository<Person> repository)//recebendo a injeção
         {
             _repository = repository;  //atribui a variavel ao contex declarado na classe
         }
