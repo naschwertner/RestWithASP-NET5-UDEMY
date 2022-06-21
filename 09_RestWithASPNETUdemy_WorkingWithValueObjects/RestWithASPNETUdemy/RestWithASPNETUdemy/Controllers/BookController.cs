@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RestWithASPNETUdemy.Data.VO;
 using RestWithASPNETUdemy.Model;
 using RestWithASPNETUdemy.Services;
 
@@ -45,7 +46,7 @@ namespace RestWithASPNETUdemy.Controllers
         // Maps POST requests to https://localhost:{port}/api/book/
         // [FromBody] consome o objeto JSON enviado no corpo da solicitação
         [HttpPost]
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
             return Ok(_personService.Create(book));
@@ -54,7 +55,7 @@ namespace RestWithASPNETUdemy.Controllers
         // Maps PUT requests to https://localhost:{port}/api/book/
         // [FromBody] consome the JSON object sent in the request body
         [HttpPut]
-        public IActionResult Put([FromBody] Book book)
+        public IActionResult Put([FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
             return Ok(_personService.Update(book));
